@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Especial</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #ff6347;
+        }
+        .hidden {
+            display: none;
+        }
+        .question-box, .balloon {
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            max-width: 300px;
+        }
+        .options button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .options button:hover {
+            background-color: #ffdab9;
+        }
+        .balloon {
+            display: inline-block;
+            cursor: pointer;
+            animation: float 2s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Um Pedido Especial</h1>
+
+    <!-- Etapa 1 -->
+    <div id="step1" class="question-box">
+        <h2>Oi, você ainda me ama e quer namorar comigo?</h2>
+        <div class="options">
+            <button onclick="nextStep('step2')">Sim, amo</button>
+            <button onclick="reset()">Não, fiquei maluca</button>
+        </div>
+    </div>
+
+    <!-- Etapa 2 -->
+    <div id="step2" class="question-box hidden">
+        <h2>Você me desculpa? Eu errei com você.</h2>
+        <div class="options">
+            <button onclick="nextStep('step3')">Sim, amo</button>
+            <button onclick="reset()">Não, fiquei maluca</button>
+        </div>
+    </div>
+
+    <!-- Etapa 3 -->
+    <div id="step3" class="question-box hidden">
+        <h2>Como pedido de desculpas, você quer:</h2>
+        <div class="options">
+            <button onclick="nextStep('balloons')">Tomar um cafezinho e caminhar à tarde</button>
+            <button onclick="nextStep('balloons')">Jantar algo legal à noite</button>
+            <button onclick="nextStep('balloons')">Fazer algo tarde e depois comprar várias comidinhas</button>
+        </div>
+    </div>
+
+    <!-- Etapa 4 (Balões) -->
+    <div id="balloons" class="hidden">
+        <h2>Escolha um balão!</h2>
+        <img src="https://via.placeholder.com/100x150/FF4500/FFFFFF?text=Balão+1" class="balloon" onclick="showPrize('Vale um perfume')">
+        <img src="https://via.placeholder.com/100x150/FFFF00/000000?text=Balão+2" class="balloon" onclick="showPrize('Vale uma maquiagem')">
+        <img src="https://via.placeholder.com/100x150/0000FF/FFFFFF?text=Balão+3" class="balloon" onclick="showPrize('Vale uma roupinha da Shein')">
+    </div>
+
+    <!-- Resultado Final -->
+    <div id="result" class="question-box hidden">
+        <h2 id="prizeMessage"></h2>
+        <p>Por favor, me dá um beijinho! 🥰</p>
+    </div>
+
+    <script>
+        function nextStep(stepId) {
+            const currentStep = document.querySelector('.question-box:not(.hidden)');
+            currentStep.classList.add('hidden');
+            document.getElementById(stepId).classList.remove('hidden');
+        }
+
+        function reset() {
+            alert("Que pena! Vamos tentar novamente? 😊");
+            const steps = document.querySelectorAll('.question-box, #balloons, #result');
+            steps.forEach(step => step.classList.add('hidden'));
+            document.getElementById('step1').classList.remove('hidden');
+        }
+
+        function showPrize(prize) {
+            document.getElementById('balloons').classList.add('hidden');
+            document.getElementById('result').classList.remove('hidden');
+            document.getElementById('prizeMessage').textContent = prize;
+        }
+    </script>
+</body>
+</html>
